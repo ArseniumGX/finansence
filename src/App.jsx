@@ -4,7 +4,7 @@ import Add from './pages/Add'
 import Edit from './pages/Edit'
 import FinanceProvider from './provider/FinenceProvider'
 
-export default () => {
+const App = () => {
 
     return(
         <BrowserRouter>
@@ -20,3 +20,5 @@ export default () => {
         </BrowserRouter>
     )
 }
+
+export default App
