@@ -2,6 +2,7 @@ import moment from 'moment'
 import { useContext, useState } from 'react'
 import { v4 as uuid } from 'uuid'
 import { FinanceContext } from '../provider/FinenceProvider'
+import '../styles/add.scss'
 
 const Home = props => {
 
@@ -28,28 +29,31 @@ const Home = props => {
     }
 
     return(
-        <section>
+        <section className="add">
+            <h3>Adicionar</h3>
             <form onSubmit={ handleSubmit }>
                 <div>
                     <label htmlFor="title">Título</label>
                     <input type="text" id="title" value={title} onChange={ e => setTitle(e.target.value) } />
                 </div>
-                <div>
-                    <h6>Tipo</h6>
-                    <div className="type">
-                        <div>
-                            <label htmlFor="inner">Entrada</label>
-                            <input type="radio" name="type" value="entrada" id="in" onChange={ e => setType(e.target.value) } />
-                        </div>
-                        <div>
-                            <label htmlFor="outer">Saída</label>
-                            <input type="radio" name="type" value="saida" id="outer" onChange={e => setType(e.target.value)} />
-                        </div>
+                <fieldset>
+                    <legend>Tipo</legend>
+                    <div>
+                        <label htmlFor="inner">Entrada</label>
+                        <input type="radio" name="type" value="entrada" id="in" onChange={ e => setType(e.target.value) } />
                     </div>
-                </div>
+                    <div>
+                        <label htmlFor="outer">Saída</label>
+                        <input type="radio" name="type" value="saida" id="outer" onChange={e => setType(e.target.value)} />
+                    </div>
+                </fieldset>
                 <div>
                     <label htmlFor="category">Categoria</label>
-                    <input type="text" name="category" id="category" value={category} onChange={ e => setCategory(e.target.value) } />
+                    <select name="category" id="category" onChange={e => setCategory(e.target.value)}>
+                        <option value="gastos">Gastos</option>
+                        <option value="investimentos">Investimentos</option>
+                        <option value="contas">Contas</option>
+                    </select>
                 </div>
                 <div>
                     <label htmlFor="value">Valor</label>

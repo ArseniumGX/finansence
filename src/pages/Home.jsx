@@ -6,7 +6,7 @@ const Home = () => {
     const { state } = useContext(FinanceContext)
     return(
         <section>
-            <table>
+            <table id="table">
                 <TableHead />
                 <tbody>
                     {state.map((item, index) => (
