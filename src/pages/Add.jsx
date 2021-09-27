@@ -1,9 +1,18 @@
 import moment from 'moment'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { v4 as uuid } from 'uuid'
+import { FinanceContext } from '../provider/FinenceProvider'
 
-export default (props) => {
-    const handleSubmit = e => {
+const Home = props => {
+
+    const {state, setState, setMutate, mutate} = useContext(FinanceContext)
+
+    const [title, setTitle] = useState('')
+    const [type, setType] = useState('')
+    const [category, setCategory] = useState('')
+    const [value, setValue] = useState('')
+
+    const handleSubmit = async(e) => {
         e.preventDefault()
         const obj = {
             uuid: uuid(),
@@ -13,16 +22,11 @@ export default (props) => {
             value,
             createdAt: moment(Date.now()).format()
         }
-
-        localStorage.setItem('data', [JSON.stringify(obj)])
+        await localStorage.setItem('data', JSON.stringify([...state, obj]))
+        await setMutate(!mutate)
         props.history.push('/')
     }
 
-    const [title, setTitle] = useState('')
-    const [type, setType] = useState('')
-    const [category, setCategory] = useState('')
-    const [value, setValue] = useState('')
-    
     return(
         <section>
             <form onSubmit={ handleSubmit }>
@@ -49,7 +53,7 @@ export default (props) => {
                 </div>
                 <div>
                     <label htmlFor="value">Valor</label>
-                    <input type="number" name="value" id="value" value={value} onChange={ e => setValue(e.target.value) } />
+                    <input type="number" name="value" id="value" value={value} onChange={ e => setValue(+e.target.value) } />
                 </div>
 
                 <button type="submit">Salvar</button>
@@ -57,3 +61,5 @@ export default (props) => {
         </section>
     )
 }
+
+export default Home
